@@ -1,57 +1,115 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RectCalc
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            int x = 0;
-            int y = 0;
+            double x = 0;
+            double y = 0;
             Calc calc = new Calc();
-            Console.WriteLine("Hеllo i'm Калькулятор");
+            int mode;
 
-            if (args.Length == 2)
+            while (true)
             {
-                x = ToInt(args[0]);
-                y = ToInt(args[1]);
-                Console.WriteLine($"summ = {calc.Sum(x, y)}");
-            }
-            else
-            {
-                #region Ввод данных
-                Console.WriteLine("Введите Х");
-                if (!int.TryParse(Console.ReadLine(), out x))
+                Console.WriteLine("Выберите действие:");
+                Console.WriteLine("1. Сложение \n2. Деление\n3. Излечение квадратного корня \n4. Возведение в квадрат \n5. Выход");
+
+                string str = Console.ReadLine();
+                if (int.TryParse(str, out mode))
                 {
-                    x = 5;
-                }
+                    Console.Clear();
 
-                Console.WriteLine("Введите У");
-                if (!int.TryParse(Console.ReadLine(), out y))
+                    switch (mode)
+                    {
+                        case 1:
+                            Console.WriteLine("Сложение");
+                            Console.Write("Х = ");
+                            x = ToInt(Console.ReadLine());
+
+                            Console.Write("Y = ");
+                            y = ToInt(Console.ReadLine());
+
+                            Console.WriteLine("Сумма = {0}", calc.Sum(x, y));
+                            ToСontinued();
+                            break;
+                        case 2:
+                            Console.WriteLine("Деление");
+                            Console.Write("Х = ");
+                            x = ToInt(Console.ReadLine());
+
+                            Console.Write("Y = ");
+                            y = ToInt(Console.ReadLine());
+
+                            if (y == 0)
+                            {
+                                Console.WriteLine("Деление на 0 невозможно!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Результат = {0}", calc.Div(x, y));
+                            }
+
+                            ToСontinued();
+                            break;
+                        case 3:
+                            Console.WriteLine("Извлечение корня");
+                            Console.Write("Х = ");
+                            x = ToInt(Console.ReadLine());
+
+                            if (x < 0)
+                            {
+                                Console.WriteLine("Число должно быть >= 0");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Результат = {0}", calc.Sqrt(x));
+                            }
+
+                            ToСontinued();
+                            break;
+                        case 4:
+                            Console.WriteLine("Возведение в квадрат");
+                            Console.Write("Х = ");
+                            x = ToInt(Console.ReadLine());
+
+                            Console.WriteLine("Результат = {0}", calc.Sqr(x));
+                            ToСontinued();
+                            break;
+                        case 5:
+                            return;
+                        default:
+                            Console.WriteLine("Ошибка. Данного пункта не существует.");
+                            break;
+                    }
+                }
+                else
                 {
-                    y = 10;
+                    Console.Clear();
+                    Console.WriteLine("Ошибка. Повторите ввод.");
                 }
-
-                int result = calc.Sum(x, y);
-
-                Console.WriteLine($"Сумма = {result}");
-                #endregion
             }
-            Console.ReadLine();
         }
 
-        static int ToInt(string arg, int def = 0)
+        static double ToInt(string arg, int def = 0)
         {
-            int x;
-            if (!int.TryParse(arg, out x))
+            double num;
+            arg = arg.Replace(".", ",");
+            if (!double.TryParse(arg, out num))
             {
-                x = def;
+                num = def;
             }
-            return x;
+
+            return num;
         }
+
+        static void ToСontinued()
+        {
+            Console.Write("Дя продолжения нажмите Enter.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+
     }
 }
