@@ -2,9 +2,9 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using FactorialLibrary;
 using System.Reflection;
 using System.IO;
+using CalcBase.Models;
 
 namespace RectCalc
 {
@@ -18,33 +18,37 @@ namespace RectCalc
         {
             Operation = new List<IOperation>();
             Operation.Add(new SumOperation());
+            Operation.Add(new MinOperation());
+            Operation.Add(new MultOperation());
+            Operation.Add(new DivisionOperation());
 
             var dllName = Directory.GetCurrentDirectory() + "\\FactorialLibrary.dll";
 
-            if (!File.Exists(dllName))
+            string[] filesDll = Directory.GetFiles(Directory.GetCurrentDirectory(), "*Library.dll");
+
+            foreach(var file in filesDll)
             {
-                return;
-            }
-            //загружаем сборку
-            var assembly = Assembly.LoadFrom(dllName);
-            //получаем все типы классов в ней
-            var types = assembly.GetTypes();
-            //перебираем типы 
-            foreach (var t in types)
-            {
-                //находим тех, кто реализует интерфейс IOperation
-                var interfaces = t.GetInterfaces();
-                if (interfaces.Contains(typeof(IOperation))) {
-                    //создаем экземпляр найденного класса 
-                    var instance = Activator.CreateInstance(t) as IOperation;
-                    if (instance != null)
+                //загружаем сборку
+                var assembly = Assembly.LoadFrom(file);
+                //получаем все типы классов в ней
+                var types = assembly.GetTypes();
+                //перебираем типы 
+                foreach (var t in types)
+                {
+                    //находим тех, кто реализует интерфейс IOperation
+                    var interfaces = t.GetInterfaces();
+                    if (interfaces.Contains(typeof(IOperation)))
                     {
-                        //обавляем его в список операций
-                        Operation.Add(instance);
+                        //создаем экземпляр найденного класса 
+                        var instance = Activator.CreateInstance(t) as IOperation;
+                        if (instance != null)
+                        {
+                            //обавляем его в список операций
+                            Operation.Add(instance);
+                        }
                     }
                 }
             }
-
         }
 
         public IList<IOperation> Operation { get; private set; }
@@ -101,27 +105,8 @@ namespace RectCalc
         /// <returns>Результат деления</returns>
         public double Div(double x, double y)
         {
-            return x / y;
+            return Execute("division", new[] { x, y });
         }
 
-        /// <summary>
-        /// Извлечение квадратного корня
-        /// </summary>
-        /// <param name="x">Число</param>
-        /// <returns>Результат извлечения квадратного корня</returns>
-        public double Sqrt(double x)
-        {
-            return Math.Sqrt(x);
-        }
-
-        /// <summary>
-        /// Возведение числа в квадрат
-        /// </summary>
-        /// <param name="x">Число возводящее в квадрат</param>
-        /// <returns>Результат возведения в квадрат</returns>
-        public double Sqr(double x)
-        {
-            return Math.Pow(x, 2);
-        }
     }
 }
