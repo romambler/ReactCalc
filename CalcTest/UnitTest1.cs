@@ -21,12 +21,5 @@ namespace CalcTest
             var x = c.Div(6, 2);
             Assert.AreEqual(x, 3);
         }
-        [TestMethod]
-        public void TestSqrt()
-        {
-            var c = new Calc();
-            var x = c.Sqrt(4);
-            Assert.AreEqual(x, 2);
-        }
     }
 }
