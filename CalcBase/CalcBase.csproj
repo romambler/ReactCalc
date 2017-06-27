@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{27066FBD-E23A-4F00-99C5-5DB96DE3F047}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{B77D55B4-959F-4D86-859B-D1CEFE074D9A}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReactCalc</RootNamespace>
-    <AssemblyName>ReactCalc</AssemblyName>
+    <RootNamespace>CalcBase</RootNamespace>
+    <AssemblyName>CalcBase</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,22 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calc.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Models\IOperation.cs" />
+    <Compile Include="Models\Operation.cs" />
+    <Compile Include="Models\SumOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CalcBase\CalcBase.csproj">
-      <Project>{b77d55b4-959f-4d86-859b-d1cefe074d9a}</Project>
-      <Name>CalcBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FactorialLibrary\FactorialLibrary.csproj">
-      <Project>{32b794bf-32f5-4f6b-9162-51dfe2c03c9c}</Project>
-      <Name>FactorialLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
