@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calc.cs" />
     <Compile Include="Models\DivisionOperation.cs" />
+    <Compile Include="Models\IDisplayOperation.cs" />
     <Compile Include="Models\IOperation.cs" />
     <Compile Include="Models\MinOperation.cs" />
     <Compile Include="Models\MultOperation.cs" />

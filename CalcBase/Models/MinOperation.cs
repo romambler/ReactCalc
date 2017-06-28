@@ -29,5 +29,21 @@ namespace CalcBase.Models
         {
             return args[0] - args[1];
         }
+
+        public override string Author
+        {
+            get
+            {
+                return "I";
+            }
+        }
+
+        public override string Description
+        {
+            get
+            {
+                return "Вычитание";
+            }
+        }
     }
 }
