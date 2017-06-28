@@ -29,5 +29,29 @@ namespace SqrtLibrary
         {
             return Math.Sqrt(args[0]);
         }
+
+        public override string Author
+        {
+            get
+            {
+                return "Apple";
+            }
+        }
+
+        public override string DisplayName
+        {
+            get
+            {
+                return "Квадратный корень";
+            }
+        }
+
+        public override string Description
+        {
+            get
+            {
+                return "Извлечение квадратного корня из числа, число должно быть >= 0";
+            }
+        }
     }
 }

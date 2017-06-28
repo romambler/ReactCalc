@@ -34,7 +34,7 @@ namespace RectCalc
             try
             {
                 var result = calc.Execute(oper, new[] { x, y });
-                Console.WriteLine("{0} = {1}", oper, result);
+                Console.WriteLine("{0} = {1}", calc.LastOperationName, result);
             } catch(NotSupportedException e)
             {
                 Console.WriteLine(e.Message);

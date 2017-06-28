@@ -22,5 +22,21 @@ namespace ReactCalc.Models
         {
             return args.Sum();
         }
+
+        public override string DisplayName
+        {
+            get
+            {
+                return "Сумма";
+            }
+        }
+
+        public override string Description
+        {
+            get
+            {
+                return "Сложное описание";
+            }
+        }
     }
 }
