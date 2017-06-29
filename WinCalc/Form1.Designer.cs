@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblResult = new System.Windows.Forms.Label();
             this.lbOperations = new System.Windows.Forms.ListBox();
             this.btnClose = new System.Windows.Forms.Button();
@@ -37,6 +38,7 @@
             this.tbY = new System.Windows.Forms.TextBox();
             this.tbX = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -134,6 +136,11 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Шаг 3. Результат";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 300;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -168,6 +175,7 @@
         private System.Windows.Forms.Label lbDescription;
         private System.Windows.Forms.TextBox tbY;
         private System.Windows.Forms.TextBox tbX;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
