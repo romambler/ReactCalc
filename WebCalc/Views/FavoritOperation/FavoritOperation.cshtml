@@ -1,0 +1,59 @@
+﻿@model List<DomainModels.Models.UserFavoriteResult>
+
+@{
+    ViewBag.Title = "Избранные операций";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="table">
+    <div class="row">
+        <div class="col-md-1">
+            Id
+        </div>
+        <div class="col-md-1">
+            ФИО
+        </div>
+        <div class="col-md-1">
+            Имя операций
+        </div>
+        <div class="col-md-1">
+            Входящие параметры
+        </div>
+        <div class="col-md-1">
+            Результат
+        </div>
+        <div class="col-md-1">
+            Время выполнения операций
+        </div>
+        <div class="col-md-2">
+            Дата выполнения операций
+        </div>
+    </div>
+    @foreach (var favoritOper in Model)
+    {
+        <div class="row">
+            <div class="col-md-1">
+                @favoritOper.Id
+            </div>
+            <div class="col-md-1">
+                @favoritOper.User.FIO
+            </div>
+            <div class="col-md-1">
+                @favoritOper.Result.Operation.Name
+            </div>
+            <div class="col-md-1">
+                @favoritOper.Result.InputData
+            </div>
+            <div class="col-md-1">
+                @favoritOper.Result.Result
+            </div>
+            <div class="col-md-1">
+                @favoritOper.Result.ExeutionTime
+            </div>
+            <div class="col-md-1">
+                @favoritOper.Result.ExecutionDate.ToString()
+            </div>
+        </div>
+    }
+</div>

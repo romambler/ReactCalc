@@ -1,7 +1,7 @@
-﻿@model List<DomainModels.Models.User>
+﻿@model List<DomainModels.Models.Operation>
 
 @{
-    ViewBag.Title = "Пользователи";
+    ViewBag.Title = "Операций";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -12,24 +12,25 @@
             Id
         </div>
         <div class="col-md-4">
-            Login
+            Name
         </div>
         <div class="col-md-4">
-            FIO
+            FullName
         </div>
     </div>
-    @foreach (var user in Model)
+    @foreach (var oper in Model)
     {
         <div class="row">
             <div class="col-md-4">
-                @user.Id
+                @oper.Id
             </div>
             <div class="col-md-4">
-                @user.Login
+                @oper.Name
             </div>
             <div class="col-md-4">
-                @user.FIO
+                @oper.FullName
             </div>
         </div>
     }
 </div>
+
