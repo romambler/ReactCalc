@@ -1,0 +1,59 @@
+﻿@model List<DomainModels.Models.OperationResult>
+
+@{
+    ViewBag.Title = "Результаты операций";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="table">
+    <div class="row">
+        <div class="col-md-1">
+            Id
+        </div>
+        <div class="col-md-1">
+            ФИО
+        </div>
+        <div class="col-md-1">
+            Имя операций
+        </div>
+        <div class="col-md-1">
+            Входящие параметры
+        </div>
+        <div class="col-md-1">
+            Результат
+        </div>
+        <div class="col-md-1">
+            Время выполнения операций
+        </div>
+        <div class="col-md-2">
+            Дата выполнения операций
+        </div>
+    </div>
+    @foreach (var operRes in Model)
+    {
+        <div class="row">
+            <div class="col-md-1">
+                @operRes.Id
+            </div>
+            <div class="col-md-1">
+                @operRes.Author.FIO
+            </div>
+            <div class="col-md-1">
+                @operRes.Operation.Name
+            </div>
+            <div class="col-md-1">
+                @operRes.InputData
+            </div>
+            <div class="col-md-1">
+                @operRes.Result
+            </div>
+            <div class="col-md-1">
+                @operRes.ExeutionTime
+            </div>
+            <div class="col-md-1">
+                @operRes.ExecutionDate.ToString()
+            </div>
+        </div>
+    }
+</div>

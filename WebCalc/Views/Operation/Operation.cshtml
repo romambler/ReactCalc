@@ -1,0 +1,36 @@
+﻿@model List<DomainModels.Models.Operation>
+
+@{
+    ViewBag.Title = "Операций";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="table">
+    <div class="row">
+        <div class="col-md-4">
+            Id
+        </div>
+        <div class="col-md-4">
+            Name
+        </div>
+        <div class="col-md-4">
+            FullName
+        </div>
+    </div>
+    @foreach (var oper in Model)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @oper.Id
+            </div>
+            <div class="col-md-4">
+                @oper.Name
+            </div>
+            <div class="col-md-4">
+                @oper.FullName
+            </div>
+        </div>
+    }
+</div>
+

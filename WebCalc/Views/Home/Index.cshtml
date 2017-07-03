@@ -1,0 +1,35 @@
+﻿@model List<DomainModels.Models.User>
+
+@{
+    ViewBag.Title = "Пользователи";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="table">
+    <div class="row">
+        <div class="col-md-4">
+            Id
+        </div>
+        <div class="col-md-4">
+            Login
+        </div>
+        <div class="col-md-4">
+            FIO
+        </div>
+    </div>
+    @foreach (var user in Model)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @user.Id
+            </div>
+            <div class="col-md-4">
+                @user.Login
+            </div>
+            <div class="col-md-4">
+                @user.FIO
+            </div>
+        </div>
+    }
+</div>
