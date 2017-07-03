@@ -46,7 +46,7 @@ namespace DomainModels.Repository
                                                            Operation = new Operation { Name = nameOper },
                                                            InputData = inputData,
                                                            Result = result,
-                                                           ExeutionTime = executionTime,
+                                                           ExecutionTime = executionTime,
                                                            ExecutionDate = executionDate};
                     }
                 }

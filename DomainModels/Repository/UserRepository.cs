@@ -18,6 +18,11 @@ namespace DomainModels.Repository
             throw new NotImplementedException();
         }
 
+        public User Create(User elem)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(User user)
         {
             throw new NotImplementedException();
@@ -56,6 +61,11 @@ namespace DomainModels.Repository
 
 
         public void Update(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Valid(string userName, string password)
         {
             throw new NotImplementedException();
         }

@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace DomainModels.Repository
 {
-    public interface IUserRepository
+    public interface IUserRepository : IEntityRepository<User>
     {
-        User Create();
-        User Get(long Id);
-        void Update(User user);
-        void Delete(User user);
-        IEnumerable<User> GetAll();
+        bool Valid(string userName, string password);
     }
 }

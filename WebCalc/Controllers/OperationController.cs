@@ -16,7 +16,7 @@ namespace WebCalc.Controllers
         }
         
         // GET: Operation
-        public ActionResult Operation()
+        public ActionResult Index()
         {
             List<Operation> operations = operation.GetAll().ToList();
             return View(operations);
