@@ -20,7 +20,7 @@ namespace DomainModels.EntityFramework
         public void Delete(User elem)
         {
             var user = context.Users.FirstOrDefault(u => u.Id == elem.Id);
-            context.Users.Remove(user);
+            user.IsDeleted = true;
             context.SaveChanges();
         }
 
