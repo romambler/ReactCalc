@@ -8,7 +8,7 @@ namespace DomainModels.Repository
 {
     public interface IEntityRepository<T>
     {
-        T Create(T elem);
+        T Create();
 
         T Get(long id);
 

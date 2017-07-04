@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace DomainModels.Repository
 {
-    public interface IUserFavoritOperRepository
+    public interface IORRepository : IEntityRepository<OperationResult>
     {
-        void Add(UserFavoriteResult operResult);
-        IEnumerable<UserFavoriteResult> GetAll();
+        double GetOldResult(long operaionId, string inputdata);
     }
 }

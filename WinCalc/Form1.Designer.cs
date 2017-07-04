@@ -114,7 +114,7 @@
             this.tbY.Name = "tbY";
             this.tbY.Size = new System.Drawing.Size(100, 20);
             this.tbY.TabIndex = 1;
-            this.tbY.TextChanged += new System.EventHandler(this.TextChanged);
+            this.tbY.TextChanged += new System.EventHandler(this.textChanged);
             // 
             // tbX
             // 
@@ -122,7 +122,7 @@
             this.tbX.Name = "tbX";
             this.tbX.Size = new System.Drawing.Size(100, 20);
             this.tbX.TabIndex = 0;
-            this.tbX.TextChanged += new System.EventHandler(this.TextChanged);
+            this.tbX.TextChanged += new System.EventHandler(this.textChanged);
             this.tbX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbX_KeyDown);
             // 
             // groupBox4

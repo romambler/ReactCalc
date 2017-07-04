@@ -1,9 +1,5 @@
-﻿using ReactCalc.Models;
+﻿using CalcBase.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PowLibrary
 {
@@ -46,7 +42,7 @@ namespace PowLibrary
         {
             get
             {
-                return string.Format("{0}^{1}", _args[0], _args[1]);
+                return "Возведение числа в степень";
             }
         }
     }

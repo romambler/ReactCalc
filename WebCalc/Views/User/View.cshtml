@@ -44,9 +44,18 @@
 
     </dl>
     <ul>
-        @foreach (var op in Model.UserFavoriteResults)
+        History:
+        @foreach (var or in Model.OperationResults)
         {
-            <li> @op.Result.Operation.FullName @op.Result.Result</li>
+            <li>@or.ExecutionDate @or.InputData @or.Result</li>
+        }
+    </ul>
+
+    <ul>
+        Favorites:
+        @foreach (var or in Model.UserFavoriteResults)
+        {
+            <li>@or.Result.Operation.Name @or.Result.Result</li>
         }
     </ul>
 </div>

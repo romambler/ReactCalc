@@ -1,5 +1,4 @@
-﻿using ReactCalc.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +15,7 @@ namespace CalcBase.Models
 
         public override string Name
         {
-            get { return "division"; }
+            get { return "div"; }
         }
 
         public override double Execute(double[] args)

@@ -9,7 +9,7 @@ namespace RectCalc
         {
             double x = 0;
             double y = 0;
-            Calc calc = new Calc();
+            Calc calc = new Calc(@"C:\Users\pc1\Documents\visual studio 2015\Projects\ReactCalc\WebCalc\bin");
             var oper = "sum";
 
             if (args.Length == 0)
