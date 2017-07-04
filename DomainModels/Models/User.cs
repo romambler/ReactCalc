@@ -1,24 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace DomainModels.Models
 {
+
+    [Table("Users")]
     public class User
     {
-        [HiddenInput(DisplayValue = false)]
+
+        public User()
+        {
+            OperationResults = new List<OperationResult>();
+            UserFavoriteResults = new List<UserFavoriteResult>();
+        }
         public long Id { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
+        
         public Guid UId { get; set; }
-
-        [Display(Name = "Логин")]
+        
         public string Login { get; set; }
-
-        [HiddenInput(DisplayValue = false)]
+        
         public string Password { get; set; }
-
-        [Display(Name = "ФИО")]
+        
         public string FIO { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public virtual ICollection<OperationResult> OperationResults { get; set; }
+
+        public virtual ICollection<UserFavoriteResult> UserFavoriteResults { get; set; }
     }
 }

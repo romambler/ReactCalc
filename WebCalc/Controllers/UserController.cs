@@ -8,13 +8,13 @@ using System.Web.Mvc;
 
 namespace WebCalc.Controllers
 {
-    public class HomeController : Controller
+    public class UserController : Controller
     {
         private IUserRepository UserRepository { get; set; }
 
-        public HomeController()
+        public UserController()
         {
-            UserRepository = new UserRepository();
+            UserRepository = new DomainModels.EntityFramework.UserRepository();
         }
 
         public ActionResult Index()
@@ -23,18 +23,10 @@ namespace WebCalc.Controllers
             return View(users);
         }
 
-        public ActionResult About()
+        public ActionResult View(long id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var user = UserRepository.Get(id);
+            return View(user);
         }
     }
 }
