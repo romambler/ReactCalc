@@ -8,13 +8,14 @@ using System.Web.Mvc;
 
 namespace WebCalc.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private IUserRepository UserRepository { get; set; }
 
-        public UserController()
+        public UserController(IUserRepository UserRepository)
         {
-            UserRepository = new DomainModels.EntityFramework.UserRepository();
+            this.UserRepository = UserRepository;
         }
 
         public ActionResult Index()
@@ -27,6 +28,20 @@ namespace WebCalc.Controllers
         {
             var user = UserRepository.Get(id);
             return View(user);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(long id)
+        {
+            var user = UserRepository.Get(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+            UserRepository.Update(user);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -19,8 +19,8 @@ namespace DomainModels.EntityFramework
 
         public void Delete(User elem)
         {
-            var user = context.Users.FirstOrDefault(u => u.Id == elem.Id);
-            user.IsDeleted = true;
+            elem.IsDeleted = true;
+            context.Entry(elem).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
         }
 
@@ -36,22 +36,24 @@ namespace DomainModels.EntityFramework
 
         public void Update(User elem)
         {
-            var user = context.Users.FirstOrDefault(u => u.Id == elem.Id);
-            user = elem;         
+            context.Entry(elem).State = System.Data.Entity.EntityState.Modified;     
             context.SaveChanges();
         }
 
         public bool Valid(string userName, string password)
         {
-            throw new NotImplementedException();
+            return context.Users.Count(u => !u.IsDeleted && u.Login == userName && u.Password == password) == 1;
         }
 
-        public User Create(User elem)
+        public User Create()
         {
-            context.Users.Add(elem);
-            context.SaveChanges();
-            return elem;
+            throw new NotImplementedException();
 
+        }
+
+        public User GetByName(string name)
+        {
+            return context.Users.FirstOrDefault(u => !u.IsDeleted && u.Login == name);
         }
     }
 }

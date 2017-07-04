@@ -1,5 +1,4 @@
 ﻿using CalcBase.Models;
-using ReactCalc.Models;
 using RectCalc;
 using System;
 using System.Windows.Forms;
@@ -40,9 +39,9 @@ namespace WinCalc
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            calc = new Calc();
+            calc = new Calc(@"C:\Users\pc1\Documents\visual studio 2015\Projects\ReactCalc\WebCalc\bin");
 
-            var operations = calc.Operation;
+            var operations = calc.Operations;
 
             lbOperations.DataSource = operations;
             lbOperations.DisplayMember = "Name";
@@ -83,7 +82,7 @@ namespace WinCalc
             }
         }
 
-        private void TextChanged(object sender, EventArgs e)
+        private void textChanged(object sender, EventArgs e)
         {
 
             //определяем операцию

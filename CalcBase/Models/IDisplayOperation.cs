@@ -1,4 +1,4 @@
-﻿namespace ReactCalc.Models
+﻿namespace CalcBase.Models
 {
     public interface IDisplayOperation : IOperation
     {

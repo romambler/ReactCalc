@@ -1,5 +1,4 @@
-﻿using ReactCalc.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
@@ -15,71 +14,67 @@ namespace RectCalc
     {
         public string LastOperationName { get; set; }
 
-        public Calc()
+        public Calc(string path)
         {
-            Operation = new List<IOperation>();
+            Operations = new List<IOperation>();
 
-            var baseOperations = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.dll");
-
-            if (baseOperations != null)
-                foreach (var i in baseOperations)
-                    GetOperations(i);
-
-            //директория с расширениями
-            var extsDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Extensions");
-
-            if (!Directory.Exists(extsDirectory))
-            {
+            if (string.IsNullOrWhiteSpace(path))
                 return;
-            }
 
-            var exts = Directory.GetFiles(extsDirectory, "*.dll");
+            var exts = Directory.GetFiles(path, "*.dll");
 
-            foreach (var file in exts)
+            foreach (var dllName in exts)
             {
-                GetOperations(file);
+                var assembly = Assembly.LoadFrom(dllName);
+                GetOperations(assembly);
+                
             }
         }
 
-        private void GetOperations(string dll)
+        private void GetOperations(Assembly assembly)
         {
-            if (!File.Exists(dll))
-                return;
-
-            //загружаем сборку
-            var assembly = Assembly.LoadFrom(dll);
-            //получаем все типы классов в ней
-            var types = assembly.GetTypes();
-            //перебираем типы 
-            var searchInterface = typeof(IOperation);
-            foreach (var t in types)
+            //exeption при FactorialLibrary
+            try
             {
-                //находим тех, кто реализует интерфейс IOperation
-                var interfaces = t.GetInterfaces();
-                if (interfaces.Contains(searchInterface))
+                // получаем всем типы/классы из нее
+                var types = assembly.GetTypes();
+
+                // перебираем типы
+                var searchInterface = typeof(IOperation);
+                foreach (var t in types)
                 {
-                    try
+                    var r = Directory.GetCurrentDirectory();
+                    if (t.IsAbstract || t.IsInterface)
+
+                        continue;
+
+                    // находим тех, кто реализует интерфейc IOperation
+                    var interfs = t.GetInterfaces();
+
+                    if (interfs.Contains(searchInterface))
                     {
-                        //создаем экземпляр найденного класса 
+                        // создаем экземпляр найденного класса
+
                         var instance = Activator.CreateInstance(t) as IOperation;
                         if (instance != null)
                         {
-                            //обавляем его в список операций
-                            Operation.Add(instance);
+                            // добавляем его в наш список операций
+                            Operations.Add(instance);
+
                         }
                     }
-                    catch { }
                 }
             }
+            catch { }
         }
 
-        public IList<IOperation> Operation { get; private set; }
+        public IList<IOperation> Operations { get; private set; }
 
         private double Execute(Func<IOperation, bool> selector, double[] args)
         {
 
             //Находим операцию по имени
-            var oper = Operation.FirstOrDefault(selector);
+            var oper = Operations.FirstOrDefault(selector);
 
             if (oper != null)
             {
