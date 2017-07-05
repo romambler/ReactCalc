@@ -24,12 +24,11 @@ namespace WebCalc.Controllers
             ORRepository = orrepository;
             this.userrep = userrep;
             this.orep = orep;
-            orep.SaveOrUpdate(calc.Operations);
-            ViewBag.Operations = GetOperations();
         }
         public ActionResult Index()
         {
             var model = new CalcModel();
+            model.OperationList = calc.Operations.Select(o => new SelectListItem() { Text = $"{o.Name}", Value = $"{o.Name}" });
             return View(model);
         }
 
@@ -38,12 +37,15 @@ namespace WebCalc.Controllers
         {
             var oper = orep.GetByName(model.Operation);
             var operation = calc.Operations.FirstOrDefault(o => o.Name == oper.Name);
+            model.OperationList = calc.Operations.Select(o => new SelectListItem() { Text = $"{o.Name}", Value = $"{o.Name}", Selected = model.Operation == o.Name });
+
 
             if (operation!= null)
             {
                 var operid = oper.Id;
                 var inputdata = string.Join(", ", model.Arguments);
                 var oldResult = ORRepository.GetOldResult(operid, inputdata);
+
                 if (!double.IsNaN(oldResult))
                 {
                     model.Result = oldResult;
@@ -54,6 +56,8 @@ namespace WebCalc.Controllers
 
                     var rec = ORRepository.Create();
                     var currentUser = userrep.GetByName(User.Identity.Name);
+                    var dbOper = orep.GetByName(oper.Name);
+
                     rec.AuthorId = currentUser.Id;
                     rec.OperationId = operid;
                     rec.ExecutionDate = DateTime.Now;
@@ -65,11 +69,6 @@ namespace WebCalc.Controllers
                 return View(model);
             }
             return View();
-        }
-
-        private string[] GetOperations()
-        {
-            return orep.GetNameOperations().ToArray();
         }
     }
 }

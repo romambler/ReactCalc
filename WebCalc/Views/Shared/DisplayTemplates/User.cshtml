@@ -1,0 +1,5 @@
+﻿@model DomainModels.Models.User
+
+@Html.DisplayNameFor(model => model.FIO)
+
+@Html.ActionLink(Model.FIO, "View", "User", new { Model.Id}, null)

@@ -1,59 +1,109 @@
-﻿@model List<DomainModels.Models.OperationResult>
+﻿@model IEnumerable<DomainModels.Models.OperationResult>
 
 @{
-    ViewBag.Title = "Результаты операций";
+    ViewBag.Title = "Index";
+    var message = ViewBag.Message as string;
+}
+<ul id="tabs" class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" id="OperationResult">Результаты</a></li>
+    <li><a data-toggle="tab" id="OperationFavorite">Избранное</a></li>
+</ul>
+
+@if (!string.IsNullOrWhiteSpace(message))
+{
+    <p class="bg-warning">@(message)</p>
 }
 
-<h2>@ViewBag.Title.</h2>
+@if (Model == null)
+{
+    return;
+}
+<div class="tab-content">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Operation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InputData)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Result)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExecutionTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExecutionDate)
+            </th>
+            <th></th>
+        </tr>
 
-<div class="table">
-    <div class="row">
-        <div class="col-md-1">
-            Id
-        </div>
-        <div class="col-md-1">
-            ФИО
-        </div>
-        <div class="col-md-1">
-            Имя операций
-        </div>
-        <div class="col-md-1">
-            Входящие параметры
-        </div>
-        <div class="col-md-1">
-            Результат
-        </div>
-        <div class="col-md-1">
-            Время выполнения операций
-        </div>
-        <div class="col-md-2">
-            Дата выполнения операций
-        </div>
-    </div>
-    @foreach (var operRes in Model)
-    {
-        <div class="row">
-            <div class="col-md-1">
-                @operRes.Id
-            </div>
-            <div class="col-md-1">
-                @operRes.Author.FIO
-            </div>
-            <div class="col-md-1">
-                @operRes.Operation.Name
-            </div>
-            <div class="col-md-1">
-                @operRes.InputData
-            </div>
-            <div class="col-md-1">
-                @operRes.Result
-            </div>
-            <div class="col-md-1">
-                @operRes.ExecutionTime
-            </div>
-            <div class="col-md-1">
-                @operRes.ExecutionDate.ToString()
-            </div>
-        </div>
-    }
+        @foreach (var item in Model)
+            {
+            <tr class="@(item.IsLiked ? "like" : "dislike")">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Operation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InputData)
+                </td>
+                <td id="result">
+                    @Html.DisplayFor(modelItem => item.Result)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExecutionTime)
+                </td>
+                <td class="dateExecution">
+                    @Html.DisplayFor(modelItem => item.ExecutionDate)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="Like(this, @item.Id)">@(item.IsLiked ? "dislike" : "like")</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="NewResult(this, @item.Id, @item.OperationId, '@(item.InputData)')">Пересчитать</button>
+                </td>
+            </tr>
+        }
+    </table>
 </div>
+
+<script type="text/javascript">
+    function Like(elem, id) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Like")",
+            data: { "id": id },
+            success: function (msg) {
+                if (msg.Success)
+                    $(elem).html(msg.Name);
+                else
+                    alert(msg.Error);
+            }
+        });
+    }
+
+    function NewResult(elem, id, idOper, inputData) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("NewResult")",
+            data: { "id": id, "idOper": idOper, "inputData": inputData },
+            success: function (msg) {
+                $("#result").html(msg.Result);
+                $(elem).parent().parent().find(".dateExecution").html(msg.Time);
+            }
+        });
+    }
+
+    function Recalculate() {
+
+    }
+
+    jQuery("#OperationResult").click(function (e) {
+        $(".dislike").show()
+    });
+
+    jQuery("#OperationFavorite").click(function (e) {
+        $(".dislike").hide();
+    });
+</script>

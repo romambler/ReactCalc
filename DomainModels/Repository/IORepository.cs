@@ -9,8 +9,7 @@ namespace DomainModels.Repository
 {
     public interface IORepository : IEntityRepository<Operation>
     {
-        string[] GetNameOperations();
-        Operation GetByName(string name);
-        void SaveOrUpdate(IEnumerable<CalcBase.Models.IOperation> listOperations);
+        Operation GetByName(string oper);
+        Operation GetById(long id);
     }
 }

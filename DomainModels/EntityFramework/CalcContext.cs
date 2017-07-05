@@ -19,6 +19,6 @@ namespace DomainModels.EntityFramework
         public DbSet<User> Users { get; set; }
         public DbSet<Operation> Operation { get; set; }
         public DbSet<OperationResult> OperationResult { get; set; }
-        public DbSet<UserFavoriteResult> UserFavoritOperationResult { get; set; }
+        public DbSet<UserFavoriteResult> UserFavoritResult { get; set; }
     }
 }

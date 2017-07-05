@@ -21,6 +21,7 @@ public class AutofacConfig
         builder.RegisterType<EF.UserRepository>().As<IUserRepository>();
         builder.RegisterType<EF.ORRepository>().As<IORRepository>();
         builder.RegisterType<EF.ORepository>().As<IORepository>();
+        builder.RegisterType<EF.LikeRepository>().As<ILikeRepository>();
 
         // создаем новый контейнер с теми зависимостями, которые определены выше
         var container = builder.Build();
