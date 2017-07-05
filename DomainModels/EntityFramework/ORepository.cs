@@ -42,30 +42,20 @@ namespace DomainModels.EntityFramework
 
         public void Update(Operation elem)
         {
-            context.Entry(elem).State = System.Data.Entity.EntityState.Modified;
+            context.Entry(elem).State = elem.Id == 0
+                ? System.Data.Entity.EntityState.Added
+                : System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
-        }
-
-        public string[] GetNameOperations()
-        {
-            return context.Operation.Select(o => o.FullName).ToArray();
         }
 
         public Operation GetByName(string name)
         {
-            return context.Operation.FirstOrDefault(o => o.FullName == name);
+            return context.Operation.FirstOrDefault(u => u.Name == name);
         }
 
-        public void SaveOrUpdate(IEnumerable<CalcBase.Models.IOperation> listOperations)
-        {   //добавляет постоянно
-            /*List<Operation> list = new List<Operation>();
-            foreach(var item in listOperations)
-            {
-                CalcBase.Models.IDisplayOperation operation = item as CalcBase.Models.IDisplayOperation;
-                context.Entry(new Operation { Name = item.Name, FullName = operation != null ? operation.DisplayName : item.Name }).State = System.Data.Entity.EntityState.Added;
-                context.SaveChanges();
-            }*/
-            
+        public Operation GetById(long id)
+        {
+            return context.Operation.FirstOrDefault(u => u.Id == id);
         }
     }
 }

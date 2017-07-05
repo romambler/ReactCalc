@@ -55,5 +55,13 @@ namespace DomainModels.EntityFramework
             var rec = context.OperationResult.FirstOrDefault(u => u.OperationId == operaionId && u.InputData == inputdata);
             return rec != null ? rec.Result : Double.NaN;
         }
+
+        public IEnumerable<OperationResult> GetByUser(User user)
+        {
+            if (user == null)
+                return new OperationResult[0];
+
+            return context.OperationResult.Where(u => u.AuthorId == user.Id).ToList();
+        }
     }
 }
